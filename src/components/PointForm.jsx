@@ -59,6 +59,12 @@ const PointForm = () => {
     setValues({...values, rating: value})
   };
 
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setValues({...values, photos:[...values.photos,e.target.files[0]]});
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
@@ -83,7 +89,7 @@ const PointForm = () => {
                   htmlFor="name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Nombre
+                  Nombre del lugar
                 </label>
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
@@ -391,6 +397,7 @@ const PointForm = () => {
                           name="file-upload"
                           type="file"
                           className="sr-only"
+                          onChange={handleImageChange}
                         />
                       </label>
                       <p className="pl-1">o arrastrá y soltá</p>
