@@ -1,32 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getData } from "../storage/firebaseMethods";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
-const PointForm = () => {
-    //es logica del componente checkBox --> trabajar con lift state
-    const [isChecked, setIsChecked] = useState(false);
-    const handleCheckboxChange = (e) => {
-        setIsChecked(e.target.checked)
-        if(e.target.checked){
-            if(!values.categories.includes(e.target.name))
-            setValues({
-                ...values,
-                categories: [...values.categories, e.target.name]
-              });
-        } else{
-            if(values.categories.includes(e.target.name)){
-                setValues({
-                    ...values,
-                    categories: values.categories.filter(el => el !== e.target.name)
-                })
-            }
-        }
-    }
+const capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(values)
-        
-    }
+const PointForm = () => {
   const [values, setValues] = useState({
     name: "",
     address: "",
@@ -40,6 +20,46 @@ const PointForm = () => {
     rating: "",
     photos: [],
   });
+
+  const fetchData = async () => {
+    const categoryData = await getData("categories");
+    const consumeData = await getData("consume_options");
+    setCategoryOptions(categoryData);
+    setConsumeOptions(consumeData);
+  };
+
+  const [categoryOptions, setCategoryOptions] = useState(null);
+  const [consumeOptions, setConsumeOptions] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleCheckboxChange = (e, property) => {
+    const checked = e.target.checked;
+    const name = e.target.name;
+    const prop_values = values[property];
+    const included = prop_values.includes(name);
+
+    checked
+      ? !included &&
+        setValues({
+          ...values,
+          [property]: [...prop_values, name],
+        })
+      : included &&
+        setValues({
+          ...values,
+          [property]: prop_values.filter((el) => el !== name),
+        });
+    console.log(values);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(values);
+  };
+
   return (
     <div className="mx-auto w-full md:w-9/12 lg:w-6/12 px-4">
       <form onSubmit={handleSubmit}>
@@ -72,7 +92,8 @@ const PointForm = () => {
                       placeholder="Celiamigos"
                       required
                       value={values.name}
-                      onChange={(e) => {setValues({...values, name: e.target.value})
+                      onChange={(e) => {
+                        setValues({ ...values, name: e.target.value });
                       }}
                     />
                   </div>
@@ -96,7 +117,9 @@ const PointForm = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                   value={values.address}
-                  onChange={(e) => setValues({...values, address: e.target.value})}                
+                  onChange={(e) =>
+                    setValues({ ...values, address: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -117,7 +140,9 @@ const PointForm = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                   value={values.city}
-                  onChange={(e) => setValues({...values, city: e.target.value})}   
+                  onChange={(e) =>
+                    setValues({ ...values, city: e.target.value })
+                  }
                 />
               </div>
             </div>
@@ -138,7 +163,9 @@ const PointForm = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   required
                   value={values.region}
-                  onChange={(e) => setValues({...values, region: e.target.value})}
+                  onChange={(e) =>
+                    setValues({ ...values, region: e.target.value })
+                  }
                 />
               </div>
               <div className="sm:col-span-4">
@@ -156,7 +183,9 @@ const PointForm = () => {
                     autoComplete="website"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={values.website}
-                    onChange={(e) => setValues({...values, website: e.target.value})}
+                    onChange={(e) =>
+                      setValues({ ...values, website: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -175,7 +204,9 @@ const PointForm = () => {
                     autoComplete="postal-code"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={values.phone}
-                    onChange={(e) => setValues({...values, phone: e.target.value})}
+                    onChange={(e) =>
+                      setValues({ ...values, phone: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -191,26 +222,35 @@ const PointForm = () => {
               <div className="mt-5 space-y-10">
                 <fieldset>
                   <div className="mt-6 space-y-6">
-                    <div className="relative flex gap-x-3">
-                      <div className="flex h-6 items-center">
-                        <input
-                          id="restaurant"
-                          name="restaurante"
-                          type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          checked={isChecked}
-                          onChange={handleCheckboxChange}
-                        />
-                      </div>
-                      <div className="text-sm leading-6">
-                        <label
-                          htmlFor="restaurant"
-                          className="font-medium text-gray-900"
-                        >
-                          Restaurante
-                        </label>
-                      </div>
-                    </div>
+                    {categoryOptions &&
+                      categoryOptions.map((category) => {
+                        return (
+                          <div
+                            className="relative flex gap-x-3"
+                            key={category.id}
+                          >
+                            <div className="flex h-6 items-center">
+                              <input
+                                id={category.data.name}
+                                name={category.data.name}
+                                type="checkbox"
+                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                onChange={(e) => {
+                                  handleCheckboxChange(e, "categories");
+                                }}
+                              />
+                            </div>
+                            <div className="text-sm leading-6">
+                              <label
+                                htmlFor={category.data.name}
+                                className="font-medium text-gray-900"
+                              >
+                                {capitalizeFirstLetter(category.data.name)}
+                              </label>
+                            </div>
+                          </div>
+                        );
+                      })}
                   </div>
                 </fieldset>
 
@@ -223,24 +263,35 @@ const PointForm = () => {
                   </p>
                   <fieldset>
                     <div className="mt-6 space-y-6">
-                      <div className="relative flex gap-x-3">
-                        <div className="flex h-6 items-center">
-                          <input
-                            id="onPlace"
-                            name="onPlace"
-                            type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          />
-                        </div>
-                        <div className="text-sm leading-6">
-                          <label
-                            htmlFor="onPlace"
-                            className="font-medium text-gray-900"
-                          >
-                            Consumo en el lugar
-                          </label>
-                        </div>
-                      </div>
+                      {consumeOptions &&
+                        consumeOptions.map((option) => {
+                          return (
+                            <div
+                              className="relative flex gap-x-3"
+                              key={option.id}
+                            >
+                              <div className="flex h-6 items-center">
+                                <input
+                                  id={option.data.name}
+                                  name={option.data.name}
+                                  type="checkbox"
+                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                  onChange={(e) => {
+                                    handleCheckboxChange(e, "consume_options");
+                                  }}
+                                />
+                              </div>
+                              <div className="text-sm leading-6">
+                                <label
+                                  htmlFor={option.data.name}
+                                  className="font-medium text-gray-900"
+                                >
+                                  {capitalizeFirstLetter(option.data.name)}
+                                </label>
+                              </div>
+                            </div>
+                          );
+                        })}
                     </div>
                   </fieldset>
                 </div>
@@ -268,7 +319,9 @@ const PointForm = () => {
                     rows={3}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={values.comments}
-                    onChange={(e) => setValues({...values, comments:e.target.value})}
+                    onChange={(e) =>
+                      setValues({ ...values, comments: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -279,7 +332,7 @@ const PointForm = () => {
                   Puntuación
                 </h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">
-                  ¿Cuántas estrellas le das? 
+                  ¿Cuántas estrellas le das?
                 </p>
                 <div className="flex items-center pt-4">
                   <svg
