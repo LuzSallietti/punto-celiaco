@@ -1,16 +1,20 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './routes/Home'
-import PointCreate from './routes/PointCreate'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./routes/Home";
+import BottomNav from "./components/BottomNav";
+import TopNav from "./components/TopNav";
+import PointCreate from "./routes/PointCreate";
 
 const App = () => {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route exact path='/' element={<Home/>}/>
-      <Route path='/puntos/crear' element={<PointCreate/>}/>
-    </Routes>    
+      <TopNav />
+      <Routes>        
+        <Route exact path="/" element={<Home />} />
+        <Route path="/puntos/crear" element={<PointCreate />} />
+      </Routes>
+      <BottomNav />
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

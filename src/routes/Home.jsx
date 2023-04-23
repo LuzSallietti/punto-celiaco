@@ -28,7 +28,7 @@ const Home = () => {
             </div>
         )
       })}
-      <AnchorBtn path="/puntos/crear" text="Crear un punto" />
+      
     </div>
   );
 };
