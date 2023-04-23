@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getData } from "../storage/firebaseMethods";
+import { getData, addData } from "../storage/firebaseMethods";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 
 const capitalizeFirstLetter = (str) => {
@@ -18,8 +18,9 @@ const PointForm = () => {
     consume_options: [],
     comments: [],
     rating: 0,
-    photos: [],
   });
+
+  const [photos, setPhotos] = useState([]);
 
   const fetchData = async () => {
     const categoryData = await getData("categories");
@@ -61,13 +62,14 @@ const PointForm = () => {
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      setValues({...values, photos:[...values.photos,e.target.files[0]]});
+      setPhotos([...photos, e.target.files[0]]);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
+    addData('points', values, photos)
   };
 
   return (
