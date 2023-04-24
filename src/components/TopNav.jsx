@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import logo from '../assets/img/logo2.png';
 
 
 function classNames(...classes) {
@@ -9,7 +10,7 @@ function classNames(...classes) {
 
 const TopNav = () => {
   return (
-    <Disclosure as="nav" className="bg-indigo-200 rounded-full lg:w-9/12 lg:mx-auto mt-2 mx-2">
+    <Disclosure as="nav" className="bg-white rounded-full lg:w-9/12 lg:mx-auto mt-2 mx-2">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 sm:px-12 lg:px-16 ">
@@ -17,14 +18,14 @@ const TopNav = () => {
               <div className="flex flex-1 items-center justify-start sm:items-stretch">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    className="block h-4 w-auto lg:hidden"
+                    src={logo}
+                    alt="Punto celíaco"
                   />
                   <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    className="hidden h-6 w-auto lg:block"
+                    src={logo}
+                    alt="Punto celíaco"
                   />
                 </div>               
               </div>

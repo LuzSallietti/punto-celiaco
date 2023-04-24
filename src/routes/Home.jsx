@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getData } from "../storage/firebaseMethods";
-import AnchorBtn from "../components/AnchorBtn";
+import SearchForm from '../components/SearchForm';
+import CategoriesFilter from "../components/CategoriesFilter";
 
 const Home = () => {
   const [points, setPoints] = useState(null);
@@ -15,10 +16,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col items-center justify-center">
-      <h1>Punto celíaco</h1>
-      <h2>Home</h2>
-      <br></br>
+    <section className="mx-auto w-full md:w-9/12 lg:w-6/12 px-4 pt-8 pb-32">
+      <h1 className="text-2xl font-medium text-center">Encontrá los mejores lugares para comer sin gluten.</h1>
+      <SearchForm/>
+      <CategoriesFilter/>
+      
       {points && points.map(point => {
         return(
             <div key={point.id}>
@@ -29,7 +31,7 @@ const Home = () => {
         )
       })}
       
-    </div>
+    </section>
   );
 };
 

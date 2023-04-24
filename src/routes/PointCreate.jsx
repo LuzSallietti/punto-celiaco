@@ -2,7 +2,7 @@ import PointForm from '../components/PointForm'
 
 const PointCreate = () => {
   return (
-    <div className='bg-slate-100'>        
+    <div className='pt-8 pb-32'>        
         <PointForm/>            
     </div>
   )
