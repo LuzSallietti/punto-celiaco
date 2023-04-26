@@ -12,9 +12,9 @@ const CategoriesFilter = () => {
   }, []);
     
   return (
-     <div className="w-full lg:w-auto">
+     <div className="w-full">
       <div className="overflow-x-scroll scroll-smooth lg:overflow-auto py-4">
-        <div className="flex lg:flex-wrap items-center whitespace-nowrap">
+        <div className="flex lg:flex-wrap lg:justify-center items-center whitespace-nowrap">
           {categories &&
             categories.map((category) => {
               return (

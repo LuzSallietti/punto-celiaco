@@ -1,6 +1,7 @@
 import { app } from './firebase';
 import {
     getFirestore,
+    getDoc,
     setDoc,
     addDoc,
     doc,
@@ -26,6 +27,17 @@ export const getData = async (collectionName) => {
         data: item.data()
     }));
     return results;
+};
+
+//GET by id
+export const getById = async (id, collectionName) => {
+  const docRef = doc(collection(db, collectionName), id);
+  const docData = await getDoc(docRef);
+  if (docData.exists()) {
+    return docData.data();
+  } else {
+    return null;
+  }
 };
 
 //POST
