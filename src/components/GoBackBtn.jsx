@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 
 const GoBackBtn = () => {
     const navigate = useNavigate()
-  return (
+  return (    
     <div className="group h-12 w-12 opacity-80 rounded-full bg-indigo-200 absolute left-0 ml-2 mt-2 flex justify-center items-center  hover:bg-gray-50 dark:hover:bg-gray-800" onClick={() => navigate(-1)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +18,7 @@ const GoBackBtn = () => {
         />
       </svg>
     </div>
+
   )
 }
 

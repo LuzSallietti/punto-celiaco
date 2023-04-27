@@ -1,7 +1,8 @@
 import perfil from '../assets/img/perfil.jpg';
 const ReviewsList = ({ rating, review }) => {
   return (
-    <div className="mt-4">
+    <div className="mt-8 border-t border-indigo-200">
+      <h2 className="text-xl font-medium mt-4 mb-8">Opiniones recientes</h2>
       <article className='border-b border-indigo-500/50'>
         <div className="flex items-center mb-4 space-x-4">
           <img
