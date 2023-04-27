@@ -8,6 +8,7 @@ import Gallery from "../components/Gallery";
 import AnchorBtn from "../components/AnchorBtn";
 import RatingCount from "../components/RatingCount";
 import ReviewsList from "../components/ReviewsList";
+import ConsumeOptionsLabel from "../components/ConsumeOptionsLabel";
 
 const PointView = () => {
   const { id } = useParams();
@@ -43,6 +44,7 @@ const PointView = () => {
             region={point.region}
             city={point.city}
           />
+          <ConsumeOptionsLabel consumeOptions={point.consume_options}/>
           <RatingCount rating={point.rating} />
           <div className="flex my-2 flex-row wrap">
             {point.categories.map((category) => {
