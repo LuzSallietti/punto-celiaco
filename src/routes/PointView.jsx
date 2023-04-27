@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getById } from "../storage/firebaseMethods";
-import Rating from "../components/Rating";
+import BookmarkBtn from "../components/BookmarkBtn";
+import GoBackBtn from "../components/GoBackBtn";
 import LocationBtn from "../components/LocationBtn";
 import Gallery from "../components/Gallery";
 import AnchorBtn from "../components/AnchorBtn";
@@ -22,9 +23,12 @@ const PointView = () => {
   }, []);
 
   return (
-    <section className="mx-auto w-full md:w-10/12 lg:w-7/12 px-4 pt-8 pb-32">
+    <section className="mx-auto w-full md:w-10/12 lg:w-7/12 px-4 pt-8 pb-32">      
+        
       {point && (
-        <>
+        <article className="relative">
+            <BookmarkBtn/>
+            <GoBackBtn/>        
           <Gallery images={point.photos} />
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
             {point.name}
@@ -48,8 +52,10 @@ const PointView = () => {
           </div>
 
           <ReviewsList rating={point.rating} review={point.comments} />
-        </>
+        
+        </article> 
       )}
+      
     </section>
   );
 };

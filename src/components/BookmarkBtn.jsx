@@ -1,8 +1,6 @@
-import React from "react";
-
 const BookmarkBtn = () => {
   return (
-    <div className="group h-12 w-12 opacity-75 rounded-full bg-indigo-200 absolute right-0 mr-2 mt-2 flex justify-center items-center  hover:bg-gray-50 dark:hover:bg-gray-800">
+    <div className="group h-12 w-12 opacity-80 rounded-full bg-indigo-200 absolute right-0 mr-2 mt-2 flex justify-center items-center  hover:bg-gray-50 dark:hover:bg-gray-800">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
