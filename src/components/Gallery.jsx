@@ -1,12 +1,10 @@
 const Gallery = ({ images }) => {
-  const numColumns = images.length > 1 ? images.length - 1 : 1;
-  const columnWidth = '7rem';
+  const numColumns = images.length;
+  const columnWidth = '13rem';
 
   return (
-    <div className="grid gap-4">
-      <div className="h-40 w-full">
-        <img className="h-full w-full object-cover rounded-lg" src={images[0]} alt=""></img>
-      </div>
+    <div className="grid mb-4">
+      
       <div
         className="grid"
         style={{
@@ -19,9 +17,9 @@ const Gallery = ({ images }) => {
         }}
       >
         {images.map((image, index) => {
-          if (index > 0) {
+          
             return (
-              <div key={image} className="h-24 mr-4">
+              <div key={Math.random()} className="h-48 mr-2">
                 <img
                   className="h-full w-full object-cover rounded-lg"
                   src={image}
@@ -29,7 +27,7 @@ const Gallery = ({ images }) => {
                 ></img>
               </div>
             );
-          }
+          
         })}
       </div>
     </div>

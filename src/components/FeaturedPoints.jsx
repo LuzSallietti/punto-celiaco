@@ -34,7 +34,7 @@ const FeaturedPoints = () => {
                     <article onClick={() => navigate(`/puntos/${point.id}`)}key={point.id} className="relative flex flex-col items-center bg-white border border-indigo-200 rounded-lg shadow md:w-6/12 mb-8 md: md:mr-8 hover:bg-indigo-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 ">
                       <BookmarkBtn/>
                     <img className="object-cover w-full rounded-t-lg h-36 md:rounded-l-lg" src={point.data.photos[0]} alt={point.data.name}></img>
-                    <div className="flex flex-col justify-between p-4 leading-normal">
+                    <div className="flex flex-col justify-between p-4 w-full leading-normal">
                         <div className="flex flex-row justify-between items-start">
                           <h3 className="mb-2 text-base font-semibold text-gray-900 dark:text-white">{point.data.name}</h3>
                           <Rating rating={point.data.rating}/>
