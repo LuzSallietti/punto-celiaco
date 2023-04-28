@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import { routes, Login, Layout } from "./navigation/routes";
+import { routes, Login, Register, Layout } from "./navigation/routes";
 import { ProtectedRoutes } from "./navigation/ProtectedRoutes";
 import UserContextProvider from "./context/UserContext";
 
@@ -9,6 +9,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Register/>}/>
           <Route element={<ProtectedRoutes />}>
             <Route element={<Layout />}>
               {routes.map(({ id, path, Component }) => (

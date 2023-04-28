@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import {
@@ -42,7 +43,15 @@ export const onSingInGmail = async () => {
     return error;
   }
 };
+//Register a new user with email and password
+export const createNewUser = async (email, password) =>{
+  try {
+    return await createUserWithEmailAndPassword(auth, email, password);    
+  } catch (error) {
+    return error.code, error.message;
+  }
 
+}
 //Sign out
 
 export const onSignOut = async () => {

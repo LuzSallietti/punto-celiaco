@@ -1,12 +1,12 @@
 import logo from "../assets/img/logo2.png";
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { onSignIn, onSingInGmail } from "../storage/firebaseMethods";
 
 const LoginForm = () => {
   const [user, setUser] = useState({ email: "", password: "" });
-  const {state, dispatch} = useContext(UserContext);
+  const { state, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -16,26 +16,32 @@ const LoginForm = () => {
       try {
         const result = await onSignIn(user);
         console.log(result);
-        dispatch({ type: "LOGGIN", payload: { email: user.email, token: result?.user?.accessToken } });
+        dispatch({
+          type: "LOGGIN",
+          payload: { user: result?.user?.uid, token: result?.user?.accessToken },
+        });
         navigate("/home");
       } catch (error) {
         console.error("Luz Error:", error);
       }
     }
-  }
-  
-  const handleLoginInGmail = async () => {    
+  };
+
+  const handleLoginInGmail = async () => {
     try {
-        const result = await onSingInGmail();
-        console.log(result);
-        dispatch({ type: "LOGGIN", payload: { email: result.user.email, token: result?.user?.accessToken } });
-        navigate("/home");
-        //setIsLoggin("Ingresar");
+      const result = await onSingInGmail();
+      console.log(result);
+      dispatch({
+        type: "LOGGIN",
+        payload: { email: result.user.email, token: result?.user?.accessToken },
+      });
+      navigate("/home");
+      //setIsLoggin("Ingresar");
     } catch (error) {
-        console.error(error);
-        //setIsLoggin("Intentar nuevamente");
+      console.error(error);
+      //setIsLoggin("Intentar nuevamente");
     }
-}
+  };
 
   return (
     <>
@@ -45,12 +51,12 @@ const LoginForm = () => {
         </div>
         <p className="mt-4 text-center text-sm text-gray-500">
           ¿No tienes cuenta?{" "}
-          <a
-            href="#"
+          <Link
+            to="/registro"
             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
           >
             Registrate
-          </a>
+          </Link>
         </p>
 
         <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -132,7 +138,31 @@ const LoginForm = () => {
             onClick={handleLoginInGmail}
             className="flex w-full justify-center rounded-full bg-indigo-200 border px-3 py-1.5 text-sm font-semibold leading-6 text-gray-800 shadow-sm hover:bg-indigo-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            <svg viewBox="0 0 1152 1152" focusable="false" aria-hidden="true" role="img" className="mr-3 h6- w-6 spectrum-Icon spectrum-Icon--sizeM" data-social-button-type="icon"><path d="M1055.994 594.42a559.973 559.973 0 0 0-8.86-99.684h-458.99V683.25h262.28c-11.298 60.918-45.633 112.532-97.248 147.089v122.279h157.501c92.152-84.842 145.317-209.78 145.317-358.198z" fill="#4285f4"></path><path d="M588.144 1070.688c131.583 0 241.9-43.64 322.533-118.07l-157.5-122.28c-43.64 29.241-99.463 46.52-165.033 46.52-126.931 0-234.368-85.728-272.691-200.919H152.636v126.267c80.19 159.273 245 268.482 435.508 268.482z" fill="#34a853"></path><path d="M315.453 675.94a288.113 288.113 0 0 1 0-185.191V364.482H152.636a487.96 487.96 0 0 0 0 437.724z" fill="#fbbc05"></path><path d="M588.144 289.83c71.551 0 135.792 24.589 186.298 72.88l139.78-139.779C829.821 144.291 719.504 96 588.143 96c-190.507 0-355.318 109.21-435.508 268.482L315.453 490.75c38.323-115.19 145.76-200.919 272.691-200.919z" fill="#ea4335"></path></svg>
+            <svg
+              viewBox="0 0 1152 1152"
+              focusable="false"
+              aria-hidden="true"
+              role="img"
+              className="mr-3 h6- w-6 spectrum-Icon spectrum-Icon--sizeM"
+              data-social-button-type="icon"
+            >
+              <path
+                d="M1055.994 594.42a559.973 559.973 0 0 0-8.86-99.684h-458.99V683.25h262.28c-11.298 60.918-45.633 112.532-97.248 147.089v122.279h157.501c92.152-84.842 145.317-209.78 145.317-358.198z"
+                fill="#4285f4"
+              ></path>
+              <path
+                d="M588.144 1070.688c131.583 0 241.9-43.64 322.533-118.07l-157.5-122.28c-43.64 29.241-99.463 46.52-165.033 46.52-126.931 0-234.368-85.728-272.691-200.919H152.636v126.267c80.19 159.273 245 268.482 435.508 268.482z"
+                fill="#34a853"
+              ></path>
+              <path
+                d="M315.453 675.94a288.113 288.113 0 0 1 0-185.191V364.482H152.636a487.96 487.96 0 0 0 0 437.724z"
+                fill="#fbbc05"
+              ></path>
+              <path
+                d="M588.144 289.83c71.551 0 135.792 24.589 186.298 72.88l139.78-139.779C829.821 144.291 719.504 96 588.143 96c-190.507 0-355.318 109.21-435.508 268.482L315.453 490.75c38.323-115.19 145.76-200.919 272.691-200.919z"
+                fill="#ea4335"
+              ></path>
+            </svg>
             Ingresar con Google
           </button>
         </div>

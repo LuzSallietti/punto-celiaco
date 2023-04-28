@@ -1,4 +1,5 @@
 import Login from '../routes/Login';
+import Register from '../routes/Register';
 import Layout from '../components/layout/Layout';
 
 import Home from '../routes/Home';
@@ -25,4 +26,4 @@ export const routes = [
     },
 ]
 
-export {Login, Layout}
+export {Login, Register, Layout}
