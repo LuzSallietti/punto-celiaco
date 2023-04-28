@@ -1,5 +1,12 @@
 import { app } from './firebase';
 import {
+  getAuth,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
+import {
     getFirestore,
     getDoc,
     setDoc,
@@ -11,11 +18,36 @@ import {
 } from "firebase/firestore";
 import { getStorage, uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 
+//get the auth instance
+const auth = getAuth(app);
+
 //get the db instance
 const db = getFirestore(app);
 
 //get tge storage instance
 const storage = getStorage(app)
+
+//Sign in with email and password
+export const onSignIn = async ({ email, password }) => {
+  return await signInWithEmailAndPassword(auth, email, password);
+};
+
+//Sign in with provider --> Gmail
+const googleAuth = new GoogleAuthProvider();
+
+export const onSingInGmail = async () => {
+  try {
+    return await signInWithPopup(auth, googleAuth);
+  } catch (error) {
+    return error;
+  }
+};
+
+//Sign out
+
+export const onSignOut = async () => {
+  return await signOut(auth);
+};
 
 //GET 
 
