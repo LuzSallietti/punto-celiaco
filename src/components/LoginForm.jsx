@@ -33,7 +33,7 @@ const LoginForm = () => {
       console.log(result);
       dispatch({
         type: "LOGGIN",
-        payload: { email: result.user.email, token: result?.user?.accessToken },
+        payload: { user: result?.user?.uid, token: result?.user?.accessToken },
       });
       navigate("/home");
       //setIsLoggin("Ingresar");

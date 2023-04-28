@@ -9,7 +9,7 @@ const BottomNav = () => {
           data-tooltip-target="tooltip-home"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/home")}
         >
           <svg
             className="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-500"
