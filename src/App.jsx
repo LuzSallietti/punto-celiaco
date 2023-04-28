@@ -1,22 +1,25 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./routes/Login";
-import Home from "./routes/Home";
-import Layout from "./components/layout/Layout";
-import PointCreate from "./routes/PointCreate";
-import PointView from "./routes/PointView";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { routes, Login, Layout } from "./navigation/routes";
+import { ProtectedRoutes } from "./navigation/ProtectedRoutes";
+import UserContextProvider from "./context/UserContext";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-      <Route path="/" element={<Login/>}/>  
-      <Route element={<Layout />}>        
-          <Route path="/home" element={<Home />} />
-          <Route path="/puntos/crear" element={<PointCreate />} />
-          <Route path="/puntos/:id" element={<PointView/>}/>
-       </Route>
-      </Routes>
-    </BrowserRouter>
+    <UserContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route element={<Layout />}>
+              {routes.map(({ id, path, Component }) => (
+                <Route key={id} path={path} element={<Component />} />
+              ))}
+            </Route>
+          </Route>
+          <Route path="/" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
+    </UserContextProvider>
   );
 };
 
