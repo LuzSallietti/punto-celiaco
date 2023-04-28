@@ -1,4 +1,7 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
+import { UserContext } from '../context/UserContext';
+import { onSignOut } from '../storage/firebaseMethods';
+import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../assets/img/logo2.png';
@@ -9,6 +12,15 @@ function classNames(...classes) {
 }
 
 const TopNav = () => {
+  const {state, dispatch} = useContext(UserContext);
+  const handleLogout = async () => {
+    try {
+      await onSignOut();
+      dispatch({ type: "LOGOUT" })
+    } catch (error) {
+      console.log(error);
+    }    
+  }
   return (
     <Disclosure as="nav" className="bg-white rounded-full lg:w-9/12 lg:mx-auto mt-2 mx-2">
       {({ open }) => (
@@ -82,12 +94,10 @@ const TopNav = () => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
+                          <Link className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')} onClick={handleLogout} to="#">
+                            
                             Cerrar sesión
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>

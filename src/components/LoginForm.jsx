@@ -1,10 +1,12 @@
 import logo from "../assets/img/logo2.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { onSignIn, onSingInGmail } from "../storage/firebaseMethods";
 
 const LoginForm = () => {
   const [user, setUser] = useState({ email: "", password: "" });
+  const {state, dispatch} = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -14,7 +16,7 @@ const LoginForm = () => {
       try {
         const result = await onSignIn(user);
         console.log(result);
-        //dispatch({ type: "LOGGIN", payload: { email: values.email, token: result?.user?.accessToken } });
+        dispatch({ type: "LOGGIN", payload: { email: user.email, token: result?.user?.accessToken } });
         navigate("/home");
       } catch (error) {
         console.error("Luz Error:", error);
@@ -26,7 +28,7 @@ const LoginForm = () => {
     try {
         const result = await onSingInGmail();
         console.log(result);
-        //dispatch({ type: "LOGGIN", payload: { email: result.user.email, token: result?.user?.accessToken } });
+        dispatch({ type: "LOGGIN", payload: { email: result.user.email, token: result?.user?.accessToken } });
         navigate("/home");
         //setIsLoggin("Ingresar");
     } catch (error) {

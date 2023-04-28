@@ -14,7 +14,7 @@ const handleDispatch = (state, { type, payload }) => {
                 user: payload.email,
                 user_token: payload.token
             }
-        case "LOGOUT":           
+        case "LOGOUT":                      
             return {
                 ...state,
                 isLogged: false,
