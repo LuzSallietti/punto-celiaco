@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getData, addData } from "../storage/firebaseMethods";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { PointContext } from "../context/PointContext";
 
 const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 const PointForm = () => {
+  const {state, dispatch} = useContext(PointContext);
+  console.log(state);
+
   const [values, setValues] = useState({
     name: "",
     address: "",

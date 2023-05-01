@@ -2,7 +2,8 @@ import SearchForm from '../components/SearchForm';
 import CategoriesFilter from "../components/CategoriesFilter";
 import FeaturedPoints from "../components/FeaturedPoints";
 
-const Home = () => {
+
+const Home = () => {  
 
   return (
     <section className="mx-auto w-full md:w-10/12 lg:w-7/12 px-4 pt-8 pb-32">

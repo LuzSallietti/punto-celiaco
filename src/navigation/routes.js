@@ -5,6 +5,7 @@ import Layout from '../components/layout/Layout';
 import Home from '../routes/Home';
 import PointCreate from '../routes/PointCreate';
 import PointView from '../routes/PointView';
+import Bookmarked from '../routes/Bookmarked';
  
 
 
@@ -24,6 +25,11 @@ export const routes = [
         path: '/puntos/:id',
         Component: PointView
     },
+    {
+        id: 4,
+        path: '/guardados',
+        Component: Bookmarked
+    }
 ]
 
 export {Login, Register, Layout}

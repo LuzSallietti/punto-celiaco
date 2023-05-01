@@ -1,21 +1,7 @@
 import { useReducer, createContext } from 'react';
 
-const initialState = {
-  currentStep: 0,
-  name: '',
-  address:'',
-  city:'',
-  region:'',
-  country:'',
-  website:'',
-  phone:'',
-  photos: [],
-  reviews: [],
-  rating: 0,
-  categories:[],
-  consume_options:[]
-};
-
+// Crear el contexto global
+export const PointContext = createContext();
 
 // Definir la función reductora para gestionar el estado
 const handleDispatch = (state, { type, payload }) => {
@@ -39,19 +25,32 @@ const handleDispatch = (state, { type, payload }) => {
   }
 };
 
-// Crear el contexto global
-export const PointContext = createContext();
+
 
 // Crear el componente del controlador de flujo
 const PointContextProvider = ({children}) => {
+  const initialState = {
+    currentStep: 0,
+    name: '',
+    address:'',
+    city:'',
+    region:'',
+    country:'',
+    website:'',
+    phone:'',
+    photos: [],
+    reviews: [],
+    rating: 0,
+    categories:[],
+    consume_options:[]
+  };
+  
   const [state, dispatch] = useReducer(handleDispatch, initialState);
   const properties = { state, dispatch }
 
   // Devolver el contexto global con el estado y las funciones necesarias
   return (
-    <PointContext.Provider value={{ 
-      properties
-    }}>
+    <PointContext.Provider value={properties}>
       {children}
     </PointContext.Provider>
   );

@@ -4,5 +4,5 @@ import { UserContext } from '../context/UserContext'
 
 export const ProtectedRoutes = () => {
     const { state } = useContext(UserContext);
-    return state?.isLogged ? <Outlet /> : <Navigate to="/login" />;
+    return state.isLogged ? <Outlet /> : <Navigate to="/login" />;
 };
