@@ -16,7 +16,6 @@ const initialState = {
   consume_options:[]
 };
 
-// Definir las acciones posibles para la función reductora
 
 // Definir la función reductora para gestionar el estado
 const handleDispatch = (state, { type, payload }) => {
