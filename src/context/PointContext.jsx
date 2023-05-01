@@ -42,7 +42,7 @@ const handleDispatch = (state, { type, payload }) => {
 // Crear el componente del controlador de flujo
 const PointContextProvider = ({ children }) => {
   const initialState = {
-    currentStep: 0,
+    currentStep: 1,
     name: "",
     address: "",
     city: "",
